@@ -1,0 +1,15 @@
+﻿using EcommerceCore.Common.Repository;
+using EcommerceCore.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EcommerceCore.Services.Infrastructure.Repositories
+{
+    public interface ICouponRespository : IGenericRepository<Coupon>
+    {
+
+    }
+}
