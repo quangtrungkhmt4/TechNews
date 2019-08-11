@@ -1,0 +1,90 @@
+﻿@model EcommerceCore.Websites.Areas.Admin.Models.ViewModels.CategoryViewModel
+@{
+    ViewBag.Title = Model.Id == null ? "Thêm danh mục" : "Sửa danh mục";
+}
+<div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <form action="/admin/category/createoredit" method="post" id="createoredit">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">@ViewBag.Title</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Tên</label>
+                                <input type="hidden" name="Id" id="Id" value="@Model.Id">
+                                <input type="text" class="form-control" name="Name" id="Name" value="@Model.Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Mô tả</label>
+                                <input type="text" class="form-control" name="Description" id="Description" value="@Model.Description">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-4" class="control-label">Danh mục cha</label>
+                                <select class="form-control" id="Parent" name="Parent">
+                                    @{
+                                        <option value="0">---Chọn danh mục---</option>
+                                        foreach (var item in ViewBag.categoryParent as List<EcommerceCore.Domain.Entities.Category>)
+                                        {
+                                            <option value="@item.Id" @string.Format("{0}", item.Id == Model.ParentId ? "selected" : "")>@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-4" class="control-label">Trạng thái</label>
+                                <select class="form-control" id="Status" name="Status">
+                                    @{
+                                        <option value="0" @string.Format("{0}", (int)Model.Status == 0 ? "selected" : "")>Không hiển thị</option>
+                                        <option value="1" @string.Format("{0}", (int)Model.Status == 1 ? "selected" : "")>Hiển thị</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Thứ tự hiển thị</label>
+                                <input type="text" class="form-control" name="OrderDisplay" id="OrderDisplay" value="@Model.OrderDisplay">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Hiển thị trên trang chủ</label>
+                                <div class="checkbox checkbox-primary checkbox-single">
+                                    <input type="checkbox" name="Active" id="Active" @string.Format("{0}", Model.IsShowHomePage ? "checked" : "") value="true" aria-label="Active">
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-info waves-effect waves-light" onclick="categoryController.saveData()">Lưu</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/assets/js/base.js"></script>
+<script src="~/assets/js/baseJs.js"></script>
+<script src="~/assets/js/baseJs.RenderTemplate.js"></script>
